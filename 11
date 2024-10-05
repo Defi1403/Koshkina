@@ -10,7 +10,12 @@ char caesarCipher(char ch, int shift, bool encrypt) {
     // Определение базового символа (A или a)
     char base = isupper(ch) ? 'A' : 'a';
     // Вычисление сдвига
-    int shifted = ((ch - base + shift) % 26 + 26) % 26;
+    int shifted;
+    if (encrypt) {
+        shifted = ((ch - base + shift) % 26 + 26) % 26;
+    } else {
+        shifted = ((ch - base - shift) % 26 + 26) % 26;
+    }
     // Возврат сдвинутого символа
     return base + shifted;
   } else {
@@ -33,6 +38,13 @@ int main() {
     if (operation != 'E' && operation != 'D') {
       cout << "Неверный выбор операции! Завершение работы.\n";
       break;
+    }
+    bool oper;
+    if (operation == 'E') {
+        oper = true;
+    }
+    else {
+        oper = false;
     }
 
     // Запрос сдвига
@@ -81,7 +93,7 @@ int main() {
 
     // Шифрование или дешифрование строки
     for (int i = 0; i < length; i++) {
-      arr[i] = caesarCipher(arr[i], shift, operation == 'E');
+      arr[i] = caesarCipher(arr[i], shift, oper);
     }
 
     // Вывод результата
