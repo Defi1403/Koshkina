@@ -5,9 +5,16 @@
 const char* inventory[MAX_INVENTORY_ITEMS] = {"веревка", "зажигалка", nullptr};
 const char* locations[MAX_LOCATIONS] = {
     "Вы находитесь в лесу. Перед вами храм. Снаружи сидит Сфинкс.\nСфинкс задает вам вопрос: 'Кто ходит на четырех ногах утром, на двух днем и на трех вечером?'\n",
-    "Вы внутри храма. Здесь темно и таинственно.",
     "Вы видите мост над пропастью. Что будете делать?",
-    "Вы в сокровищнице. Перед вами пьедестал с реликвией."
+    "Вы в сокровищнице. Перед вами пьедестал с реликвией.",
+    "Вы заметили скрытый проход в дальней части сокровищницы. Зайдя туда, вы видете нажимные плиты на полу"
+};
+
+const char* addLocations[MAX_LOCATIONS] = {
+    "Вы находитесь в лесу. Перед вами храм. Снаружи сидит Сфинкс.\nСфинкс задает вам вопрос: 'Кто ходит на четырех ногах утром, на двух днем и на трех вечером?'\n",
+    "Вы видите мост над пропастью. Что будете делать?",
+    "Вы в сокровищнице. Перед вами пьедестал с реликвией.",
+    "Вы заметили скрытый проход в дальней части сокровищницы. Зайдя туда, вы видете нажимные плиты на полу"
 };
 
 int lives = 3;
@@ -23,8 +30,12 @@ void displayCurrentLocation(int locationIndex) {
     std::cout << locations[locationIndex] << std::endl;
 }
 
+void displayAdditionalLocation(int locationIndex) {
+    std::cout << addLocations[locationIndex] << std::endl;
+}
+
 // Обработка хода игрока
-bool processMove(char* move, int& currentLocation, bool& hasDagger) {
+bool processMove(char* move, int& currentLocation) {
     if (strcmp(move, "инвентарь") == 0) {
         displayInventory();
     } else if (strcmp(move, "уйти") == 0) {
@@ -43,7 +54,7 @@ bool processMove(char* move, int& currentLocation, bool& hasDagger) {
             return true;
         }
     } else if (strcmp(move, "осмотреться") == 0 && currentLocation == 2) {
-        std::cout << "Вы видите останки внизу пропасти. С помощью веревки вы спускаетесь вниз и находите кинжал.\n";
+            std::cout << "Вы видите останки внизу пропасти. С помощью веревки вы спускаетесь вниз и находите кинжал.\n";
         inventory[2] = "кинжал";
         std::cout << "Вы забираетесь обратно на мост.\n";
         return true;
@@ -68,7 +79,7 @@ bool processMove(char* move, int& currentLocation, bool& hasDagger) {
         std::cout << "Вы видите надпись: 'Кто возьмет оружие, тот поплатится'.\n";
         return true;
     } else if (strcmp(move, "взять реликвию") == 0 && currentLocation == 3) {
-        if (hasDagger) {
+        if () {
             std::cout << "Вы подменяете реликвию на кинжал. Ловушка не активируется.\n";
             return true;
         } else {
