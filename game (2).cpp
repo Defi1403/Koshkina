@@ -9,15 +9,15 @@ const char* locations[MAX_LOCATIONS] = {
     "Вы в сокровищнице. Перед вами пьедестал с реликвией.",
     "Вы заметили скрытый проход в дальней части сокровищницы. Зайдя туда, вы видете нажимные плиты на полу"
 };
-
 const char* addLocations[MAX_LOCATIONS] = {
     "Вы находитесь в лесу. Перед вами храм. Снаружи сидит Сфинкс.\nСфинкс задает вам вопрос: 'Кто ходит на четырех ногах утром, на двух днем и на трех вечером?'\n",
-    "Вы видите мост над пропастью. Что будете делать?",
+    "(Доп)Закрепить механизм",
     "Вы в сокровищнице. Перед вами пьедестал с реликвией.",
     "Вы заметили скрытый проход в дальней части сокровищницы. Зайдя туда, вы видете нажимные плиты на полу"
 };
 
 int lives = 3;
+bool researched = 0;
 
 // Отображение вступительной информации
 void displayIntro() {
@@ -31,31 +31,33 @@ void displayCurrentLocation(int locationIndex) {
 }
 
 void displayAdditionalLocation(int locationIndex) {
-    std::cout << addLocations[locationIndex] << std::endl;
+    if (researched = 1) {
+        std::cout << addLocations[locationIndex] << std::endl;
+    }
+    
 }
 
 // Обработка хода игрока
 bool processMove(char* move, int& currentLocation) {
     if (strcmp(move, "инвентарь") == 0) {
         displayInventory();
-    } else if (strcmp(move, "уйти") == 0) {
+    } else if (strcmp(move, "уйти") == 0 && currentLocation == 0) {
         std::cout << "Вы решили уйти. Конец игры.\n";
         return false;
-    } else if (strcmp(move, "ответить") == 0) {
-        char answer[20];
-        std::cout << "Ваш ответ: ";
-        std::cin >> answer;
-        if (strcmp(answer, "человек") == 0) {
-            std::cout << "Сфинкс открывает дверь в храм. Вы можете пройти внутрь.\n";
-            currentLocation = 2;
-            return true;
-        } else {
-            std::cout << "Неправильный ответ. Вы можете попробовать снова или уйти.\n";
-            return true;
-        }
-    } else if (strcmp(move, "осмотреться") == 0 && currentLocation == 2) {
-            std::cout << "Вы видите останки внизу пропасти. С помощью веревки вы спускаетесь вниз и находите кинжал.\n";
+    } else if (strcmp(move, "ответить") == 0 && currentLocation == 0) {
+        std::cout << "Сфинкс открывает дверь в храм. Вы можете пройти внутрь.\n";
+        currentLocation++;
+        return true;
+    } else if (strcmp(move, "осмотреться") == 0 && currentLocation == 1) {
+        std::cout << "Вы заметили чьи-то останки слева от входа. Возле них что-то блестит.\nПодойдя к ним, вы увидели кинжал и взяли его. [Предмет добавлен в инвентарь]";
+        researched = 1;
         inventory[2] = "кинжал";
+        return true;
+     } else if (strcmp(move, "подойти") == 0 && currentLocation == 1) {
+        std::cout << "Вы приблизились к мосту. Его удерживает механизм, который выглядит расшатанным. Его следует чем-то закрепить, чтобы мост вдруг не рухнул.";
+        return true;
+     } else if ((strcmp(move, "закрепить") == 0 or strcmp(move, "веревка") == 0) && currentLocation == 1) {
+        std::cout << "Вы решаете закрепить механизм, используя веревку. Теперь можно не волноваться, что мост рухнет";
         std::cout << "Вы забираетесь обратно на мост.\n";
         return true;
     } else if (strcmp(move, "перейти мост") == 0 && currentLocation == 2) {
