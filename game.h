@@ -10,7 +10,8 @@ extern int lives;
 
 void displayIntro();
 void displayCurrentLocation(int locationIndex);
-bool processMove(char* move, int& currentLocation, bool& hasDagger);
+void displayAdditionalLocation(int locationIndex);
+bool processMove(char* move, int& currentLocation);
 void displayInventory();
 
 #endif // GAME_H
