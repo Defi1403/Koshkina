@@ -7,6 +7,7 @@ const int MAX_LOCATIONS = 4;
 extern const char* inventory[MAX_INVENTORY_ITEMS];
 extern const char* locations[MAX_LOCATIONS];
 extern int lives;
+extern bool researched;
 
 void displayIntro();
 void displayCurrentLocation(int locationIndex);
