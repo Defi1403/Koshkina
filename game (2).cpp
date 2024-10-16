@@ -66,7 +66,6 @@ bool processMove(char* move, int& currentLocation, int& addCond) {
         if (inventory[2] != "кинжал") {
             std::cout << "Вы заметили чьи-то останки слева от входа. Возле них что-то блестит.\nПодойдя к ним, вы увидели незапылившийся серебрянный кинжал и взяли его. [Предмет добавлен в инвентарь]\n";
             inventory[2] = "кинжал";
-            hasDagger = true;
         } else {
             std::cout << "Вы уже обыскали помещение." << std::endl;
         }
