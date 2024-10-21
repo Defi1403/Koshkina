@@ -3,7 +3,7 @@
 
 int main() {
     displayIntro();
-    int currentLocation = 1;
+    int currentLocation = 0;
     int addCond = -1;
     bool gameRunning = true;
     char move[20] = {0};
